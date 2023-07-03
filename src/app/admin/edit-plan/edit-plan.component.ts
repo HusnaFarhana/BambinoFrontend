@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AdminService } from 'src/app/shared/services/admin.service';
 import { Subscription } from 'rxjs';
+import { planModel } from '../../shared/interfaces';
+
 @Component({
   selector: 'app-edit-plan',
   templateUrl: './edit-plan.component.html',
@@ -11,8 +13,8 @@ import { Subscription } from 'rxjs';
 export class EditPlanComponent implements OnInit {
   subscription: Subscription;
   form: FormGroup;
-  planid: any;
-  data: any;
+  planid: string;
+  data: planModel;
   constructor(
     private adminService: AdminService,
     private route: ActivatedRoute,
@@ -22,13 +24,12 @@ export class EditPlanComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
       this.planid = params['id'];
-      console.log(this.planid);
       this.getplan(this.planid);
     });
   }
   getplan(id) {
     this.adminService.getAPlan(id).subscribe((response: any) => {
-      this.data = response.data;
+      this.data = response.data;      
       this.initializeForm();
     });
   }
@@ -45,12 +46,9 @@ export class EditPlanComponent implements OnInit {
   }
   submit() {
     let upd = this.form.getRawValue();
-    // this.subscription =
       this.adminService
       .editPlan(upd)
-      // .subscribe((response) => {
-      //   this.adminService.emitEditPlan(upd)
-      // })
-   
+    
   }
 }
+

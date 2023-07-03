@@ -4,8 +4,8 @@ body {
 
 .page-content {
   width: 100%;
-  margin: 0 auto;
-  background-image: url('../../../assets/images/bgm12.jpg');
+  margin: 60px auto;
+  background-image: url("../../../assets/images/bgm12.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -18,12 +18,12 @@ body {
   width: 475px;
   border-radius: 15px;
   margin: 50px 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   color: #000000;
   font-weight: 700;
   font-size: 16px;
   position: relative;
-  background-color: #f7f3e9;
+  background-color: #ddf6d9;
 }
 
 .form-v9-content .form-detail {
@@ -35,7 +35,7 @@ body {
   font-size: 25px;
   text-align: center;
   position: relative;
-  padding: 10px 0 13px;
+  padding: 0px 0 13px;
   margin-bottom: 35px;
 }
 
@@ -60,6 +60,7 @@ body {
 }
 
 .form-v9-content .form-detail .form-row-last {
+  margin-top: -28px;
   text-align: center;
 }
 
@@ -74,7 +75,7 @@ body {
   appearance: unset;
   outline: none;
   border-radius: 27.5px;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 16px;
   font-weight: 700;
   background: rgba(255, 255, 255, 0.2);
@@ -90,9 +91,9 @@ body {
   width: 180px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   border: none;
-  margin: 20px 0 73px 35px;
+  margin: 13px 37px 55px 22px;
   cursor: pointer;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   color: #fff;
   font-weight: 700;
   font-size: 16px;
@@ -132,9 +133,14 @@ input:-moz-placeholder {
     padding: 30px 45px 30px 10px;
   }
 }
+@media screen and (min-width: 1200px) {
+  body {
+    overflow-y: hidden;
+  }
+}
 
 .already {
-  padding-left: 3rem;
+  padding-left: 7rem;
   margin-top: -40px;
 }
 
@@ -150,4 +156,11 @@ input:-moz-placeholder {
 
 .form-group {
   padding-bottom: 4%;
+}
+.errortext {
+  color: red;
+  font-size: 13px;
+  font-weight: 200;
+  font-style: italic;
+ 
 }

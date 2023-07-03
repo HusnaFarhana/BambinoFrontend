@@ -1,6 +1,9 @@
 import { Component ,OnInit} from '@angular/core';
 import { StaffService } from 'src/app/shared/services/staff.service';
 import jwt_decode from 'jwt-decode';
+import { Router } from '@angular/router';
+import { kidModel } from 'src/app/shared/interfaces'; 
+import { PayloadType } from 'src/app/shared/interfaces'; 
 
 @Component({
   selector: 'app-mykids',
@@ -10,21 +13,20 @@ import jwt_decode from 'jwt-decode';
 export class MykidsComponent implements OnInit {
   staffid: string = '';
   token: any;
-  decoded: any;
-  data: any;
+  decoded: PayloadType;
+  data: kidModel[];
   error = null;
   empty: boolean = false;
 
-  constructor(private staffService: StaffService) {}
+  constructor(private staffService: StaffService,private router: Router) {}
 
   ngOnInit(): void {
     this.token = localStorage.getItem('staff_token');
     this.decoded = jwt_decode(this.token);
     this.staffid = this.decoded.staffid;
     this.staffService.getKids(this.staffid).subscribe(
-      (response) => {  
+      (response) => {
         this.data = response.data;
-        console.log(this.data,'hereee');
         if (this.data.length === 0) {
           this.empty = true;
         }
@@ -35,7 +37,10 @@ export class MykidsComponent implements OnInit {
     );
   }
 
+  kidprofile(id) {
+    console.log(id, 'hjkjk');
 
-
-
+    this.router.navigate(['singlekid', id]);
+  }
 }
+

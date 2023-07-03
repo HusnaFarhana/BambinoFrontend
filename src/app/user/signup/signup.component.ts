@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { Validators, AbstractControl } from '@angular/forms';
+import { dateOfBirthValidator } from '../../shared/date-validator';
 
 @Component({
   selector: 'app-signup',
@@ -22,29 +23,15 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      dob: ['', Validators.required, this.dateOfBirthValidator],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      contactnum: ['', Validators.required],
+      dob: ['', [Validators.required, dateOfBirthValidator]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      contactnum: ['', [Validators.required, Validators.minLength(10)]],
       adhar: ['', Validators.required],
     });
   }
   submit(): void {
     let user = this.form.getRawValue();
-
-    // if (
-    //   user.name == '' ||
-    //   user.email == '' ||
-    //   user.password == '' ||
-    //   user.dob == '' ||
-    //   user.contactnum == '' ||
-    //   user.adhar == ''
-    // ) {
-    //   Swal.fire('Error', 'Please enter all the fields', 'error');
-    // } else {
-    //   this.userService.registerUser(user);
-
-    // }
      if (this.form.invalid) {
        this.error = true;
        return;
@@ -52,16 +39,5 @@ export class SignupComponent implements OnInit {
        this.userService.registerUser(user);
      }
   }
-  dateOfBirthValidator(
-    control: AbstractControl
-  ): { [key: string]: boolean } | null {
-    const selectedDate = new Date(control.value);
-    const today = new Date();
-
-    if (selectedDate >= today) {
-      return { futureDate: true };
-    }
-
-    return null;
-  }
+ 
 }

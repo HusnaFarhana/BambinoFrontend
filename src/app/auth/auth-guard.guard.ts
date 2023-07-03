@@ -46,8 +46,44 @@ export class ConsecutiveGuard implements CanActivate {
 
   canActivate() {
     const token = localStorage.getItem('admin_token');
+     const stafftoken = localStorage.getItem('staff_token');
+    if (token) {
+      console.log("admin tokennn");
+      this.router.navigate(['/admin/adminhome']);
+      return false;
+    } else if (stafftoken) {
+      console.log("stafftoken availabe");
+      
+       this.router.navigate(['/staff/profile']);
+       return false;
+    } else {
+      return true;
+    }
+  }
+}
+
+
+
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class RegisterGuard implements CanActivate {
+  constructor(private router: Router) {}
+
+  canActivate() {
+    const token = localStorage.getItem('admin_token');
+    const stafftoken = localStorage.getItem('staff_token');
+
     if (token) {
       this.router.navigate(['/admin/adminhome']);
+      return false;
+    } else if (stafftoken) {
+      console.log('staff heree');
+      console.log(stafftoken);
+
+      this.router.navigate(['/staff/profile']);
       return false;
     } else {
       return true;

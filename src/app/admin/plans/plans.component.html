@@ -19,10 +19,10 @@
           <li>Price</li>
           <li>Options</li>
         </ul>
-        <ul *ngFor="let plan of plans">
+        <ul *ngFor="let plan of getPlansToShow()">
           <li data-label="Name">{{ plan.name }}</li>
-          <li data-label="Details">{{ plan.description }};</li>
-          <li data-label="Details">{{ plan.ageGroup }};</li>
+          <li data-label="Details">{{ plan.description }}</li>
+          <li data-label="Details">{{ plan.ageGroup }}</li>
           <li data-label="Price">{{ plan.price }}</li>
           <li data-label="Options">
             <div class="btns">
@@ -33,6 +33,11 @@
             </div>
           </li>
         </ul>
+          <div class="pagination">
+            <button [disabled]="isFirstPage()" (click)="previousPage()">Previous</button>
+            <span class="pgno">{{ (currentPage - 1) * pageSize + 1 }} - {{ (currentPage - 1) * pageSize + getPlansToShow().length }} of {{ totalPlans }}</span>
+            <button [disabled]="isLastPage()" (click)="nextPage()">Next</button>
+          </div>
       </div>
           <div
       class="modal"

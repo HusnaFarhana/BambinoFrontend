@@ -11,12 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
 import { MykidsComponent } from './mykids/mykids.component';
 import { RegisterkidComponent } from './registerkid/registerkid.component';
-import { UserNavComponent } from './user-nav/user-nav.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { BabyProfileComponent } from './baby-profile/baby-profile.component';
 import { VerifyOTPComponent } from './verify-otp/verify-otp.component';
 import { EditbabyComponent } from './editbaby/editbaby.component';
 import { SpinnerComponent } from '../shared/spinner/spinner.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
@@ -27,12 +27,12 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
     ProfileComponent,
     MykidsComponent,
     RegisterkidComponent,
-    UserNavComponent,
     EditProfileComponent,
     BabyProfileComponent,
     VerifyOTPComponent,
     EditbabyComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +46,6 @@ import { SpinnerComponent } from '../shared/spinner/spinner.component';
   
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  exports: [UserNavComponent, CommonModule, RouterModule],
+  exports: [ CommonModule, RouterModule],
 })
 export class UserModule {}

@@ -120,4 +120,9 @@ export class AdminService {
         this.router.navigateByUrl('/tutors');
       });
   }
+  getPayments() {
+     return this.http
+       .get<any>(environment.apiUrl + 'admin/payments')
+      
+  }
 }

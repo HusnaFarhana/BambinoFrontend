@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
-
+import { UserPayload,kidModel } from 'src/app/shared/interfaces';
 @Component({
   selector: 'app-mykids',
   templateUrl: './mykids.component.html',
@@ -13,15 +13,14 @@ export class MykidsComponent implements OnInit {
  
   
   userid: String = '';
-  data: any = {};
-  decoded: any;
+  decoded: UserPayload;
   token: any;
   empty: boolean = false;
-  kids: any;
+  kids: kidModel[];
   error = null;
-  pageSize: number = 2; // Number of kids to display per page
-  currentPage: number = 1; // Current page number
-  totalKids: number = 0; // Total number of kids
+  pageSize: number = 5; 
+  currentPage: number = 1; 
+  totalKids: number = 0; 
 
   ngOnInit(): void {
     this.token = localStorage.getItem('id_token');
@@ -30,8 +29,8 @@ export class MykidsComponent implements OnInit {
 
     this.userService.mykids(this.userid).subscribe(
       (response) => {
-        this.data = response;
-        this.kids = this.data.kid;
+        
+        this.kids = response.kid;
         this.totalKids = this.kids.length;
 
         if (this.kids.length === 0) {

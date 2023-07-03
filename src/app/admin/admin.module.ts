@@ -21,6 +21,7 @@ import { AllotComponent } from './allot/allot.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EditPlanComponent } from './edit-plan/edit-plan.component';
+import { AdminChatComponent } from './admin-chat/admin-chat.component';
 
 
 
@@ -42,6 +43,7 @@ import { EditPlanComponent } from './edit-plan/edit-plan.component';
     MealplanComponent,
     AllotComponent,
     EditPlanComponent,
+    AdminChatComponent,
   ],
   imports: [
     CommonModule,

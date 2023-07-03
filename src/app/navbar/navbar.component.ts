@@ -4,6 +4,7 @@ import { AdminService } from '../shared/services/admin.service';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { StaffService } from '../shared/services/staff.service';
+import { ProfileService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,8 @@ export class NavbarComponent implements OnInit {
     public userService: UserService,
     private router: Router,
     public adminService: AdminService,
-    public staffService: StaffService
+    public staffService: StaffService,
+    private profileService: ProfileService
   ) {}
   name: String = '';
   decoded: any;
@@ -31,8 +33,17 @@ export class NavbarComponent implements OnInit {
     if (this.token) {
       this.userService.isAuthenticated = true;
       this.decoded = jwt_decode(this.token);
-      this.name = this.decoded.name;
       this.id = this.decoded.userid;
+
+      this.profileService.profileData$.subscribe((response) => {
+        if (response) {
+          this.name = response.name;
+        }
+      });
+
+      this.userService.getNav(this.id).subscribe((response) => {
+        this.name = response.data.name;
+      });
     }
     if (this.admintoken) {
       this.adminService.isAdminAuthenticated = true;

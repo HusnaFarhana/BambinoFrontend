@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 })
 export class AddplanComponent implements OnInit,OnDestroy {
   form: FormGroup;
-  subscription: Subscription; // Add this line
+  subscription: Subscription;
   constructor(
     private formBuilder: FormBuilder,
     public adminService: AdminService

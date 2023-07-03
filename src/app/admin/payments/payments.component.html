@@ -11,73 +11,27 @@
   <div class="content">
     <div class="list">
       <ul>
-        <li>First Name</li>
-        <li>Last Name</li>
-        <li>Country</li>
-        <li>Number</li>
-        <li>Reference</li>
-        <li>Description</li>
+        <li>Payment Id</li>
+        <li>User Id</li>
+        <li>User Name</li>
+        <li>Baby Id</li>
+        <li>Amount</li>
+        <li (click)="sortTableByDate()">Date <i class="arrow-icon" [ngClass]="{ 'arrow-up': isDateSortedAsc, 'arrow-down': !isDateSortedAsc }"></i></li>
       </ul>
-      <ul>
-        <li data-label="first name">Chris</li>
-        <li data-label="last name">Smith</li>
-        <li data-label="country">United Kingdom</li>
-        <li data-label="number">0123456789</li>
-        <li data-label="reference">ABCDE</li>
-        <li data-label="description">
-          <p>Example of a responsive list/table on Codepen.</p>
-        </li>
+      <ul  *ngFor="let data of  getPlansToShow()">
+        <li data-label="Payment Id">{{data.subscription.paymentid}}</li>
+        <li data-label="User Id">{{data.parent._id}}</li>
+        <li data-label="User Name">{{data.parent.name}}</li>
+        <li data-label="Baby ID">{{data._id}}</li>
+        <li data-label="price">{{data.subscription.id.price}}</li>
+        <li data-label="date">{{ getFormattedDate(data.subscription.date) }}</li>
       </ul>
-      <ul>
-        <li data-label="first name">Chris</li>
-        <li data-label="last name">Smith</li>
-        <li data-label="country">United Kingdom</li>
-        <li data-label="number">0123456789</li>
-        <li data-label="reference">ABCDE</li>
-        <li data-label="description">
-          <p>Example of a responsive list/table on Codepen.</p>
-        </li>
-      </ul>
-      <ul>
-        <li data-label="first name">Chris</li>
-        <li data-label="last name">Smith</li>
-        <li data-label="country">United Kingdom</li>
-        <li data-label="number">0123456789</li>
-        <li data-label="reference">ABCDE</li>
-        <li data-label="description">
-          <p>Example of a responsive list/table on Codepen.</p>
-        </li>
-      </ul>
-      <ul>
-        <li data-label="first name">Chris</li>
-        <li data-label="last name">Smith</li>
-        <li data-label="country">United Kingdom</li>
-        <li data-label="number">0123456789</li>
-        <li data-label="reference">ABCDE</li>
-        <li data-label="description">
-          <p>Example of a responsive list/table on Codepen.</p>
-        </li>
-      </ul>
-      <ul>
-        <li data-label="first name">Chris</li>
-        <li data-label="last name">Smith</li>
-        <li data-label="country">United Kingdom</li>
-        <li data-label="number">0123456789</li>
-        <li data-label="reference">ABCDE</li>
-        <li data-label="description">
-          <p>Example of a responsive list/table on Codepen.</p>
-        </li>
-      </ul>
-      <ul>
-        <li data-label="first name">Chris</li>
-        <li data-label="last name">Smith</li>
-        <li data-label="country">United Kingdom</li>
-        <li data-label="number">0123456789</li>
-        <li data-label="reference">ABCDE</li>
-        <li data-label="description">
-          <p>Example of a responsive list/table on Codepen.</p>
-        </li>
-      </ul>
-    </div>
+       <div class="pagination">
+            <button [disabled]="isFirstPage()" (click)="previousPage()">Previous</button>
+            <span>{{ (currentPage - 1) * pageSize + 1 }} - {{ (currentPage - 1) * pageSize + getPlansToShow().length }} of {{ totalPlans }}</span>
+            <button [disabled]="isLastPage()" (click)="nextPage()">Next</button>
+          </div>
+         </div>
   </div>
+ 
 </body>

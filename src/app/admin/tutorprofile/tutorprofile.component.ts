@@ -1,15 +1,15 @@
 import { Component ,OnInit} from '@angular/core';
 import { ActivatedRoute,Params, Router } from '@angular/router';
 import { AdminService } from 'src/app/shared/services/admin.service';  
-
+import{staffModel} from '../../shared/interfaces'
 @Component({
   selector: 'app-tutorprofile',
   templateUrl: './tutorprofile.component.html',
   styleUrls: ['./tutorprofile.component.css'],
 })
 export class TutorprofileComponent implements OnInit {
-  staffId: any;
-  staff: any;
+  staffId: string;
+  staff: staffModel;
   showDeleteConfirmationModal: boolean = false;
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +26,7 @@ export class TutorprofileComponent implements OnInit {
     this.adminService
       .getStaffProfile(this.staffId)
       .subscribe((response: any) => {
-        console.log(response);
+        console.log(response.tutor,'teetrrr');
         this.staff = response.tutor;
       });
   }
@@ -51,3 +51,4 @@ export class TutorprofileComponent implements OnInit {
      this.router.navigate(['/admin/tutors/edittutor', id]);
   }
 }
+

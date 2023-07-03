@@ -54,10 +54,7 @@ li {
 }
 
 .details {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
+
   background-color: #fff29184;
   border-radius: 5px;
   padding: 10px;

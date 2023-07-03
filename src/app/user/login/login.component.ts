@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
 error=null
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +33,7 @@ error=null
     } else {
       this.userService.loginUser(user, (error: any) => { this.error = error.message; console.log(error.message);
       });
+      
     }
   }
 }

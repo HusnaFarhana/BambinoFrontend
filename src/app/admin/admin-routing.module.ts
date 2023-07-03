@@ -20,17 +20,22 @@ import { SinglekidComponent } from './singlekid/singlekid.component';
 import { MealplanComponent } from './mealplan/mealplan.component';
 import { AllotComponent } from './allot/allot.component';
 import { EditPlanComponent } from './edit-plan/edit-plan.component';
+import { AdminChatComponent } from './admin-chat/admin-chat.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminLoginComponent,
-    canActivate: [AdminBackGuard, ConsecutiveGuard],
+    canActivate: [AdminBackGuard,
+      // ConsecutiveGuard
+    ],
   },
   {
     path: 'adminhome',
     component: AdminHomeComponent,
-    canActivate: [AdminGuard],
+    canActivate: [AdminGuard,
+      // ConsecutiveGuard
+    ],
   },
   {
     path: 'tutors',
@@ -101,6 +106,10 @@ const routes: Routes = [
     path: 'allot/:id',
     component: AllotComponent,
   },
+  {
+    path: 'admin-chat',
+    component:AdminChatComponent
+  }
 ];
 
 @NgModule({

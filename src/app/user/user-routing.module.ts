@@ -8,6 +8,7 @@ import {
   AuthGuardGuard,
   ConsecutiveGuard,
   UserBackGuard,
+  RegisterGuard,
 } from '../auth/auth-guard.guard';
 import { MykidsComponent } from './mykids/mykids.component';
 import { RegisterkidComponent } from './registerkid/registerkid.component';
@@ -17,6 +18,7 @@ import { BabyProfileComponent } from './baby-profile/baby-profile.component';
 
 import { VerifyOTPComponent } from './verify-otp/verify-otp.component';
 import { EditbabyComponent } from './editbaby/editbaby.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -24,11 +26,15 @@ const routes: Routes = [
     component: HomePageComponent,
     canActivate: [ConsecutiveGuard],
   },
-  { path: 'login', component: LoginComponent, canActivate: [UserBackGuard] },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [UserBackGuard, RegisterGuard],
+  },
   {
     path: 'signup',
 
-    canActivate: [UserBackGuard],
+    canActivate: [UserBackGuard, RegisterGuard],
     children: [
       {
         path: '',
@@ -75,6 +81,10 @@ const routes: Routes = [
     component: EditProfileComponent,
     canActivate: [AuthGuardGuard],
   },
+  {
+    path: 'chat',
+    component:ChatComponent
+  }
 ];
 
 @NgModule({

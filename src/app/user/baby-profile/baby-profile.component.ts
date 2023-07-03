@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
-
+import { kidModel } from 'src/app/shared/interfaces';
 @Component({
   selector: 'app-baby-profile',
   templateUrl: './baby-profile.component.html',
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class BabyProfileComponent implements OnInit {
   babyId: string;
-  baby: any;
+  baby: kidModel;      
   showEditModal: boolean = false;
   showDeleteConfirmationModal: boolean = false;
 
@@ -50,6 +50,8 @@ export class BabyProfileComponent implements OnInit {
   loadBabyProfile(): void {
     this.userService.getBabyProfile(this.babyId).subscribe((response: any) => {
       this.baby = response.baby;
+   
+      
     });
   }
 }

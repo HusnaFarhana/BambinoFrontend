@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminService } from 'src/app/shared/services/admin.service';
 import { Subscription } from 'rxjs';
 import { ChangeDetectorRef } from '@angular/core';
+import { planModel } from 'src/app/shared/interfaces'; 
 
 @Component({
   selector: 'app-plans',
@@ -10,7 +11,10 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class PlansComponent implements OnInit, OnDestroy {
   showDeleteConfirmationModal: boolean = false;
-  plans: any[] = [];
+  plans: planModel[];
+  pageSize: number = 2; 
+  currentPage: number = 1; 
+  totalPlans: number = 0; 
   private planAddedSubscription: Subscription;
   private editPlanSubscription: Subscription;
 
@@ -40,7 +44,9 @@ export class PlansComponent implements OnInit, OnDestroy {
     //  );
     this.adminService.getPlans().subscribe((response: any) => {
       this.plans = response.plans;
-      console.log(this.plans);
+      this.totalPlans = this.plans.length;
+
+      console.log(this.plans,'pleeeens');
     });
   }
   showConfirmationModal() {
@@ -60,4 +66,41 @@ export class PlansComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.planAddedSubscription.unsubscribe();
   }
+
+  getPlansToShow(): any[] {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.plans.slice(startIndex, endIndex);
+  }
+  goToPage(pageNumber: number): void {
+    if (
+      pageNumber >= 1 &&
+      pageNumber <= Math.ceil(this.totalPlans / this.pageSize)
+    ) {
+      this.currentPage = pageNumber;
+    }
+  }
+
+  nextPage(): void {
+    const totalPages = Math.ceil(this.totalPlans / this.pageSize);
+    if (this.currentPage < totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  isFirstPage(): boolean {
+    return this.currentPage === 1;
+  }
+
+  isLastPage(): boolean {
+    const totalPages = Math.ceil(this.totalPlans / this.pageSize);
+    return this.currentPage === totalPages;
+  }
 }
+

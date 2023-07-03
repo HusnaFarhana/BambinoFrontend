@@ -4,7 +4,7 @@
   <div class="sidebar">
     <a routerLink="/">Home</a>
     <a routerLink="/profile">My Profile</a>
-    <a class="active" routerLink="/mykids">Kids</a>
+    <a class="active" routerLink="/mykids">My Kids</a>
   </div>
 
   <div class="content">
@@ -30,6 +30,7 @@
       <li><strong>Parent:</strong> {{ baby.parent.name }}</li>
       <li><strong>Relation:</strong> {{ baby.relation }}</li>
       <li><strong>Subscription:</strong> {{ baby.subscription.id.name }}</li>
+      <li><strong>Payment Id:</strong> {{ baby.subscription.paymentid }}</li>
     </ul>
   </div>
   <div class="activities">

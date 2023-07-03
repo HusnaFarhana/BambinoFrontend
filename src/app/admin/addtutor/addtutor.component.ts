@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AdminService } from 'src/app/shared/services/admin.service';
-import { Validators, AbstractControl } from '@angular/forms';
-
+import { Validators } from '@angular/forms';
+import { dateOfBirthValidator } from '../../shared/date-validator';
 @Component({
   selector: 'app-addtutor',
   templateUrl: './addtutor.component.html',
@@ -20,7 +20,7 @@ export class AddtutorComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
-      dob: ['', [Validators.required, this.dateOfBirthValidator]],
+      dob: ['', [Validators.required,dateOfBirthValidator]],
       password: ['', Validators.required],
       address: ['', Validators.required],
       contact: ['', Validators.required],
@@ -56,16 +56,5 @@ export class AddtutorComponent implements OnInit {
       };
     }
   }
-  dateOfBirthValidator(
-    control: AbstractControl
-  ): { [key: string]: boolean } | null {
-    const selectedDate = new Date(control.value);
-    const today = new Date();
 
-    if (selectedDate >= today) {
-      return { futureDate: true };
-    }
-
-    return null;
-  }
 }

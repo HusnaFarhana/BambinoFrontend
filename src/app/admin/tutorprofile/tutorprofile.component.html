@@ -1,48 +1,14 @@
 <body>
   <div class="sidebar">
     <a routerLink="/admin/adminhome">Home</a>
-    <a routerLink="/admin/kids">Kids</a>
-    <a class="active" routerLink="/admin/tutors">Staffs</a>
+    <a class="active" routerLink="/admin/kids">Kids</a>
+    <a routerLink="/admin/tutors">Staffs</a>
     <a routerLink="/admin/users">Users</a>
     <a routerLink="/admin/plans">Plans</a>
     <a routerLink="/admin/payments">Payments</a>
   </div>
-
   <div class="content">
-    <div class="container">
-      <div class="part1">
-        <div *ngIf="staff" class="baby-profile">
-          <img
-            src="{{staff.image}}"
-            alt="Baby Avatar"
-            class="avatar"
-          />
-          <h2 class="name">{{ staff.name }}</h2>
-          <p class="dob">ID: {{ staff._id }}</p>
-          <p class="dob">Date of Birth: {{ staff.dob }}</p>
-          <div class="details">
-            <h3 class="section-title">Personal Details</h3>
-            <ul>
-              <li><strong>Email:</strong> {{ staff.email }}</li>
-              <li><strong>Password:</strong> {{ staff.password }}</li>
-              <li><strong>Contact:</strong> {{ staff.contact }}</li>
-              <li><strong>Adhar Number:</strong> {{ staff.adharNo }}</li>
-              <li><strong>Address:</strong> {{ staff.address }}</li>
-            </ul>
-          </div>
-          <div class="activities">
-            <h3 class="section-title">Options</h3>
-
-            <button class="btn btn-primary" (click)="edit(staff._id)">Edit</button>
-            <span style="margin-left: 10px; margin-right: 10px"></span>
-            <button class="btn btn-danger" (click)="showConfirmationModal()">
-              Delete
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div
+     <div
         class="modal"
         [class.show]="showDeleteConfirmationModal"
         tabindex="-1"
@@ -79,27 +45,98 @@
           </div>
         </div>
       </div>
+    <div class="row profile">
+      <div class="col-12 blue-box">
+        <img
+          src="{{staff.image}}"
+          alt="Profile Image"
+          class="profile-image"
+        />
+        <img
+          src="../../../assets/images/green-vine-plant-common-ivy-png-favpng-dvABEvMFr4LT98zM6QfTbKC3q-removebg-preview.png"
+          alt=""
+          class="leaves"
+        />
+        <table class="borderless-table">
+          <tr>
+            <td>ID</td>
+            <td>{{ staff._id }}</td>
+          </tr>
+          <tr>
+            <td>Name</td>
+            <td>{{ staff.name }}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{ staff.email }}</td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td>{{ staff.password }}</td>
+          </tr>
+          <tr>
+            <td>D.O.B</td>
+            <td>{{ staff.dob }}</td>
+          </tr>
+          <tr>
+            <td>Contact</td>
+            <td>{{ staff.contact }}</td>
+          </tr>
+         <tr>
+            <td>Adhar Number</td>
+            <td>{{ staff.adharNo }}</td>
+          </tr>
+          <tr>
+            <td>Address</td>
+            <td>{{ staff.address }}</td>
+          </tr>
 
-      <div class="part2">
-        <div *ngIf="staff" class="baby-profile">
-          <div class="details1">
-            <h3 class="section-title">Kids Under:</h3>
-            <div class="list">
-              <ul>
-                <li>ID</li>
-                <li>Options</li>
-              </ul>
-              <ul *ngFor="let kid of staff.kids">
-                <li data-label="ID">{{ kid._id }}</li>
-                <li data-label="Options">
-                  <button class="viewbutton" (click)="viewkid(kid._id)">
-                    View
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+          
+        </table>
+       <br>
+        <span style="margin-left: 0px; margin-right: 25px"></span>
+            <button class="btn btn-primary" (click)="edit(staff._id)">Edit</button>
+            <span style="margin-left: 30px; margin-right: 250px"></span>
+            <button class="btn btn-danger" (click)="showConfirmationModal()">
+              Delete
+            </button>
+         <img
+          src="../../../assets/images/animal2-removebg-preview.png"
+          alt="Bottom Right Image"
+          class="bottom-right-image"
+        />
+      </div>
+    </div>
+   
+
+
+        <div class="row kids">
+      <div class="col-12 blue-box">
+   
+      <h3>Pupils:</h3>
+          <div class="list">
+      <ul >
+         <li>ID</li>
+         <li>Name</li>
+         <li>D.O.B</li>
+         <li>Gender</li>
+        <li>Medications</li>
+        <li>More</li>
+      </ul>
+      <ul *ngFor="let kid of staff.kids">
+        <li data-label="ID">{{kid._id}}</li>
+        <li data-label="Name">{{kid.name}}</li>
+        <li data-label="D.O.B">{{kid.dob}}</li>
+        <li data-label="Gender">{{kid.gender}}</li>
+        <li data-label="Medications">{{kid.medications}}</li>
+        <li data-label="More">
+          <button (click)="viewkid(kid._id)" class="viewbutton">
+            View
+          </button>
+        </li>
+      </ul>
+      
+    </div>
       </div>
     </div>
   </div>

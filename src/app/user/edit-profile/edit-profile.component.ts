@@ -3,7 +3,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 import jwt_decode from 'jwt-decode';
 import Swal from 'sweetalert2';
-import { Validators, AbstractControl } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { UserPayload, userModel } from 'src/app/shared/interfaces';
+import { dateOfBirthValidator } from '../../shared/date-validator';
+import { ProfileService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -16,11 +19,12 @@ export class EditProfileComponent implements OnInit {
   profile: any = {};
   constructor(
     private userService: UserService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private profileService: ProfileService
   ) {}
   userid: String = '';
-  data: any = {};
-  decoded: any;
+  data: userModel;
+  decoded: UserPayload;
   token: any;
 
   ngOnInit(): void {
@@ -31,6 +35,8 @@ export class EditProfileComponent implements OnInit {
     this.userService.getUser(this.userid).subscribe((response) => {
       this.isLoading = false;
       this.data = response.user[0];
+      console.log(this.data, 'dataaaaaa12');
+
       this.initializeForm();
     });
   }
@@ -38,7 +44,7 @@ export class EditProfileComponent implements OnInit {
   initializeForm(): void {
     this.form = this.formBuilder.group({
       name: [this.data.name, Validators.required],
-      dob: [this.data.dob, [Validators.required, this.dateOfBirthValidator]],
+      dob: [this.data.dob, [Validators.required, dateOfBirthValidator]],
       contact: [this.data.contact, Validators.required],
       adhar: [this.data.adhar, Validators.required],
     });
@@ -62,16 +68,7 @@ export class EditProfileComponent implements OnInit {
       Swal.fire('Error', 'Please enter all the fields', 'error');
     } else {
       this.userService.updateUser(user);
+      this.profileService.updateProfileData(user);
     }
-  }
-  dateOfBirthValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const selectedDate = new Date(control.value);
-    const today = new Date();
-
-    if (selectedDate >= today) {
-      return { futureDate: true };
-    }
-
-    return null;
   }
 }

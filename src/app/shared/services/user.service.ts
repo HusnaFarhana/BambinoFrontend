@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, NavigationExtras } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Observable } from 'rxjs';
-import{environment} from '../../../environment'
-
+import { Observable, BehaviorSubject } from 'rxjs';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +16,15 @@ export class UserService {
   getHome(): Observable<any> {
     return this.http.get<any>(environment.apiUrl + `home`);
   }
+  getNav(id) {
+    return this.http.get<any>(environment.apiUrl + `nav/${id}`);
+  }
   registerUser(data: any) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
     const options = { headers: headers };
-console.log(data,'in service');
+    console.log(data, 'in service');
 
     return this.http
       .post<any>(environment.apiUrl + 'register', data, options)
@@ -77,20 +79,13 @@ console.log(data,'in service');
     return this.http.get<any>(environment.apiUrl + `mykids/${data}`);
   }
 
-  // registerKid(data: any) {
-  //   return this.http
-  //     .post<any>('http://localhost:3500/registerKid', data)
-  //     .subscribe((response) => {
-  //       this.router.navigateByUrl('/mykids');
-  //     });
-  // }  old
 
   registerKid(data: any) {
-     const headers = new HttpHeaders({
-       'Content-Type': 'application/json',
-     });
-     const options = { headers: headers };
-    console.log(data,'in register kid user service');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+    const options = { headers: headers };
+    console.log(data, 'in register kid user service');
     return this.http
       .post<any>(environment.apiUrl + 'registerKid', data, options)
       .subscribe((response) => {
@@ -133,9 +128,7 @@ console.log(data,'in service');
     );
   }
   editBabyProfile(data) {
-    return this.http
-      .post<any>(environment.apiUrl + 'mykids/editbaby', data)
-    
+    return this.http.post<any>(environment.apiUrl + 'mykids/editbaby', data);
   }
   deleteBaby(id) {
     return this.http
@@ -146,5 +139,78 @@ console.log(data,'in service');
         }
       });
   }
-  
 }
+
+
+
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ProfileService {
+  private profileDataSubject = new BehaviorSubject<any>(null);
+  profileData$ = this.profileDataSubject.asObservable();
+
+  updateProfileData(profileData: any) {
+    this.profileDataSubject.next(profileData);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// BehaviorSubject is a type of Subject provided by RxJS, which is a library for reactive programming in JavaScript. It is used to create an observable that emits the most recent value to new subscribers and continues to emit subsequent values as they are updated.
+
+// In the context of the ProfileService example I provided, BehaviorSubject is used to store and share the latest profile data across different components or services. Here's how it works:
+
+// When the profile data is updated in the EditProfileComponent, the updateProfileData method of the ProfileService is called with the new profile data as a parameter.
+
+// The updateProfileData method calls next() on the profileDataSubject, which emits the new profile data as the next value.
+
+// The profileDataSubject stores the emitted value as its current value and emits it to any subscribers (i.e., components or services) that have subscribed to the profileData$ observable.
+
+// Subscribers to the profileData$ observable receive the latest profile data immediately upon subscribing, and they conti

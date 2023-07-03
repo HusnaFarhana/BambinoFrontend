@@ -3,7 +3,8 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Validators, AbstractControl } from '@angular/forms';
-
+import { kidModel } from 'src/app/shared/interfaces';
+import { dateOfBirthValidator } from '../../shared/date-validator';
 @Component({
   selector: 'app-editbaby',
   templateUrl: './editbaby.component.html',
@@ -11,7 +12,7 @@ import { Validators, AbstractControl } from '@angular/forms';
 })
 export class EditbabyComponent implements OnInit {
   babyId: string;
-  baby: any;
+  baby: kidModel;
   form: FormGroup;
   error:boolean=false;
   constructor(
@@ -31,8 +32,6 @@ export class EditbabyComponent implements OnInit {
 
   loadBabyProfile(): void {
     this.userService.getBabyProfile(this.babyId).subscribe((response: any) => {
-      console.log(response.baby);
-
       this.baby = response.baby;
       this.initializeForm();
     });
@@ -40,7 +39,7 @@ export class EditbabyComponent implements OnInit {
   initializeForm(): void {
     this.form = this.formBuilder.group({
       name: [this.baby.name, Validators.required],
-      dob: [this.baby.dob, [Validators.required, this.dateOfBirthValidator
+      dob: [this.baby.dob, [Validators.required,dateOfBirthValidator
       ]],
       medical: [this.baby.medications, Validators.required],
       gender: [this.baby.gender, Validators.required],
@@ -54,7 +53,6 @@ export class EditbabyComponent implements OnInit {
       return;
     }
     let upd = this.form.getRawValue();
-    console.log(upd);
      if (
        upd.name == '' ||
        upd.dob == '' ||
@@ -72,14 +70,5 @@ export class EditbabyComponent implements OnInit {
   }
 
 
-  dateOfBirthValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const selectedDate = new Date(control.value);
-    const today = new Date();
-
-    if (selectedDate >= today) {
-      return { futureDate: true };
-    }
-
-    return null;
-  }
+ 
 }

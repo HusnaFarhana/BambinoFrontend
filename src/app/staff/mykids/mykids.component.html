@@ -8,9 +8,10 @@
   <div class="content">
       <div class="container">
       <div class="txtbtn">
-        <button class="btn btn-primary" routerLink="/register">
-          Register a Kid
-        </button>
+   
+      </div>
+      <div *ngIf="empty" class="alert alert-danger" role="alert" >
+        No pupils under this staff
       </div>
       <div *ngIf="!empty" class="div2">
         <div class="list">
@@ -21,17 +22,20 @@
             <li>Gender</li>
             <li>Parent</li>
             <li>Relation</li>
+            <li>Active</li>
             <li>Options</li>
           </ul>
-          <ul *ngIf="empty">Register Now</ul>
           <ul *ngFor="let kid of data">
             <li data-label="Image"><img src="{{kid.image}}" style="width: 70px;height: 70px; border-radius: 100%;" alt="image"></li>
             <li data-label="Name">{{kid.name}}</li>
             <li data-label="D.O.B">{{kid.dob}}</li>
             <li data-label="Gender">{{kid.gender}}</li>
             <li data-label="Parent">{{kid.parent.name}}</li>
-/            <li data-label="Options">
-              <button class="btn1">View more</button>
+            <li data-label="Parent">{{kid.active}}</li>
+            <li data-label="Relation">{{kid.relation}}</li>
+
+          <li data-label="Options">
+              <button class="btn1" (click)="kidprofile(kid._id)" >View more</button>
             </li>
           </ul>
          

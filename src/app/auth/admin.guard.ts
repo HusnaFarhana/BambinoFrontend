@@ -44,10 +44,14 @@ export class ConsecutiveGuard implements CanActivate {
 
   canActivate() {
     const token = localStorage.getItem('id_token');
+    const stafftoken = localStorage.getItem('staff_token');
     if (token) {
       this.router.navigate(['/']);
       return false;
-    } else {
+    } else if (stafftoken) { 
+       this.router.navigate(['/staff/profile']);
+       return false;
+    } else{
       return true;
     }
   }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {  CanActivate } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
@@ -34,5 +33,30 @@ export class StaffBackGuard implements CanActivate {
     } else {
       return true;
     }
+  }
+}
+
+
+@Injectable({
+  providedIn: 'root',
+})
+export class StaffAccessGuard implements CanActivate {
+  constructor(private router: Router) {}
+
+  canActivate() {
+  const admintoken = localStorage.getItem('admin_token');
+  const usertoken = localStorage.getItem('id_token');
+  if (admintoken) {
+    console.log('admin tokennn');
+    this.router.navigate(['/admin/adminhome']);
+    return false;
+  } else if (usertoken) {
+    console.log('stafftoken availabe');
+
+    this.router.navigate(['/']);
+    return false;
+  } else {
+    return true;
+  }
   }
 }
